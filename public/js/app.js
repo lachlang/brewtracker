@@ -1,3 +1,5 @@
-if (window.console) {
-  console.log("Welcome to your Play application's JavaScript!");
-}
+var btServices = angular.module("brewTracker.services", []);
+
+var btControllers = angular.module("brewTracker.controllers", []);
+
+var brewTrackerApp = angular.module("brewTracker", ["brewTracker.controllers","brewTracker.services"]);
