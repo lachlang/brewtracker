@@ -1,4 +1,4 @@
-name := """brewtracker-shell"""
+name := """brewtracker"""
 
 version := "1.0-SNAPSHOT"
 
