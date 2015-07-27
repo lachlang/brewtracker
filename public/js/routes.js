@@ -15,7 +15,6 @@ bebuApp.config(['$routeProvider',
 		});
 		$routeProvider.when('/error', {
 			templateUrl: 'fragments/error.html',
-			controller: 'ErrorCtrl',
 			requireLogin: false
 		});
 		// $routeProvider.when('/forgotten', {
@@ -28,7 +27,7 @@ bebuApp.config(['$routeProvider',
 		});
 		$routeProvider.when('/list', {
 			templateUrl: 'fragments/list.html',
-			requireLogin: false
+			requireLogin: true
 		});
 		// $routeProvider.when('/initialise', {
 		// 	templateUrl: 'fragments/loading.html',
@@ -55,10 +54,6 @@ bebuApp.config(['$routeProvider',
 		// });
 		$routeProvider.when('/profile', {
 			templateUrl: 'fragments/profile.html',
-			requireLogin: true
-		});
-		$routeProvider.when('/preferences', {
-			templateUrl: 'fragments/preferences.html',
 			requireLogin: true
 		});
 		// $routeProvider.when('/register', {
