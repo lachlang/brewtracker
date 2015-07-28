@@ -1,4 +1,4 @@
-bebuApp.config(['$routeProvider',
+brewTrackerApp.config(['$routeProvider',
 	function($routeProvider) {
 		$routeProvider.when('/about', {
 			templateUrl: 'fragments/about.html',
