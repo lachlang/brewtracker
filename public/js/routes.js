@@ -10,11 +10,11 @@ brewTrackerApp.config(['$routeProvider',
 		// 	requireLogin: false
 		// });
 		$routeProvider.when('/calculators', {
-			templateUrl: 'fragments/calculators.html',
+			templateUrl: 'components/calculators/calculators.html',
 			requireLogin: false
 		});
 		$routeProvider.when('/error', {
-			templateUrl: 'fragments/error.html',
+			templateUrl: 'components/error.html',
 			requireLogin: false
 		});
 		// $routeProvider.when('/forgotten', {
@@ -22,11 +22,11 @@ brewTrackerApp.config(['$routeProvider',
 		// 	requireLogin: false
 		// });
 		$routeProvider.when('/landing', {
-			templateUrl: 'fragments/landing.html',
+			templateUrl: 'components/landing/landing.html',
 			requireLogin: false
 		});
 		$routeProvider.when('/list', {
-			templateUrl: 'fragments/list.html',
+			templateUrl: 'components/list/list.html',
 			requireLogin: true
 		});
 		// $routeProvider.when('/initialise', {
@@ -53,7 +53,7 @@ brewTrackerApp.config(['$routeProvider',
 		// 	requireLogin: true
 		// });
 		$routeProvider.when('/profile', {
-			templateUrl: 'fragments/profile.html',
+			templateUrl: 'components/profile.html',
 			requireLogin: true
 		});
 		// $routeProvider.when('/register', {
@@ -65,7 +65,7 @@ brewTrackerApp.config(['$routeProvider',
 		// 	requireLogin: true
 		// });
 		$routeProvider.when('/signOut', {
-			templateUrl: 'fragments/home.html',
+			templateUrl: 'components/landing/landing.html',
 			requireLogin: false
 		});
 		$routeProvider.when('/terms', {
@@ -73,7 +73,7 @@ brewTrackerApp.config(['$routeProvider',
 			requireLogin: false
 		});
 		$routeProvider.otherwise({
-			redirectTo: '/home'
+			redirectTo: '/landing'
 		});
 	}
 ]);
