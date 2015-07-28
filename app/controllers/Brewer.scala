@@ -9,5 +9,5 @@ import play.api.mvc._
 
 class Brewer extends Controller{
 
-  def recipeList(id: Long) = Action{Ok("Hello World :)")}
+  def recipeList(id: Long) = Action{request => Ok("Hello World :) \nbrewerId: '" + id + "'\n[" + request+ "]")}
 }
