@@ -13,6 +13,11 @@ libraryDependencies ++= Seq(
   specs2 % Test
 )
 
+libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-server"              % "2.4.2",
+  "com.typesafe.play" %% "play-json"                % "2.4.2"
+)
+
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 
 // Play provides two styles of routers, one expects its actions to be injected, the
