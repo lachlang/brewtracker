@@ -7,7 +7,7 @@ package controllers
 import play.api._
 import play.api.mvc._
 
-class Brewer extends Controller{
+class BrewRecipe extends Controller{
 
   def recipeList(id: Long) = Action{request => Ok("Hello World :) \nbrewerId: '" + id + "'\n[" + request+ "]")}
 }
