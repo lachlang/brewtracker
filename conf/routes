@@ -5,6 +5,11 @@
 # Home page
 GET     /                           controllers.Assets.at(path="/public", file="index.html")
 
+PUT     /api/auth/login             controllers.Authentication.login
+PUT     /api/auth/logout            controllers.Authentication.logout
+
+POST    /api/register               controllers.Registration.register
+
 GET     /api/brewer/:id/recipes     controllers.Brewer.recipeList(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
