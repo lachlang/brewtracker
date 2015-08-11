@@ -16,8 +16,9 @@ libraryDependencies ++= Seq(
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-server"            % "2.4.2",
   "com.typesafe.play" %% "play-json"              % "2.4.2",
-  "com.typesafe.play" %% "play-slick"             % "1.0.1",
-  "com.typesafe.play" %% "play-slick-evolutions"  % "1.0.1"
+  "com.typesafe.slick" %% "slick" % "3.0.0"
+//  "com.typesafe.play" %% "play-slick"             % "1.0.1",
+//  "com.typesafe.play" %% "play-slick-evolutions"  % "1.0.1"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
