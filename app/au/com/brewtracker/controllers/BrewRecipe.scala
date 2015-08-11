@@ -1,4 +1,4 @@
-package controllers
+package au.com.brewtracker.controllers
 
 /**
  * Created by lachlang on 29/07/2015.

@@ -5,12 +5,12 @@
 # Home page
 GET     /                           controllers.Assets.at(path="/public", file="index.html")
 
-PUT     /api/auth/login             controllers.Authentication.login
-PUT     /api/auth/logout            controllers.Authentication.logout
+PUT     /api/auth/login             au.com.brewtracker.controllers.Authentication.login
+PUT     /api/auth/logout            au.com.brewtracker.controllers.Authentication.logout
 
-POST    /api/register               controllers.Registration.register
+POST    /api/register               au.com.brewtracker.controllers.Registration.register
 
-GET     /api/brewer/:id/recipes     controllers.BrewRecipe.recipeList(id: Long)
+GET     /api/brewer/:id/recipes     au.com.brewtracker.controllers.BrewRecipe.recipeList(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /components/*file           controllers.Assets.at(path="/public/components", file)

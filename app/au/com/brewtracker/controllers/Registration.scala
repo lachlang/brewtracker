@@ -1,4 +1,4 @@
-package controllers
+package au.com.brewtracker.controllers
 
 import play.api.mvc._
 /**
