@@ -2,32 +2,54 @@ package au.com.brewtracker.database
 
 import slick.driver.H2Driver.api._
 import slick.lifted.{ProvenShape, ForeignKeyQuery}
+import org.joda.time.DateTime
 
 /**
  * Created by Lachlan on 11/08/2015.
  */
-class Recipes(tag: Tag)
-  extends Table[(Long, String, String, String, String, String)](tag, "RECIPES") {
 
-  def id: Rep[Long] = column[Long]("SUP_ID", O.PrimaryKey)
-  def batchName: Rep[String] = column[String]("SUP_NAME")
-  def style: Rep[String] = column[String]("SUP_NAME")
-  def brewer: Rep[String] = column[String]("SUP_NAME")
+class Brewers(tag:Tag)
+  extends Table[(Long, String, String)](tag, "brewers") {
+//  extends Table[(Long, String, String, DateTime)](tag, "brewers") {
+
+  def id: Rep[Long] = column[Long]("id", O.PrimaryKey)
+  def firstName: Rep[String] = column[String]("first_name")
+  def lastName: Rep[String] = column[String]("last_name")
+
+  // optional column so we can post a happy birthday message on login
+//  def dob: Rep[DateTime] = column[DateTime]("dob")
+
+  // LG: 12-Aug-2015 We may want something like this at some point, if we want implement
+  // a LHBS finder, but not today...
+  //  def address: Rep[String] = column[String]("address_id")
+
+  def * : ProvenShape[(Long, String, String)] = (id, firstName, lastName)
+//  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
+}
+
+
+class Recipes(tag: Tag)
+  extends Table[(Long, String, String, Long, String, String)](tag, "recipes") {
+
+  def id: Rep[Long] = column[Long]("id", O.PrimaryKey)
+  def batchName: Rep[String] = column[String]("batch_name")
+  def style: Rep[String] = column[String]("style")
+  def brewerId: Rep[Long] = column[Long]("brewer_id")
   def secondaryBrewers: Rep[String] = column[String]("SUP_NAME")
   def dateBrewed: Rep[String] = column[String]("SUP_NAME")
  // def hopAdditions: Rep[List[HopAdditions]] =
 
-  def * : ProvenShape[(Long,String, String, String, String, String)] =
-    (id, batchName, style, brewer, secondaryBrewers, dateBrewed)
+  def * : ProvenShape[(Long,String, String, Long, String, String)] =
+    (id, batchName, style, brewerId, secondaryBrewers, dateBrewed)
 
-//  // A reified foreign key relation that can be navigated to create a join
-//  def brewer: ForeignKeyQuery[Suppliers, (Int, String, String, String, String, String)] =
-//    foreignKey("SUP_FK", supID, TableQuery[Suppliers])(_.id)
+  // A reified foreign key relation that can be navigated to create a join
+  def brewer: ForeignKeyQuery[Brewers, (Long, String, String)] =
+    foreignKey("brewer_fk", brewerId, TableQuery[Brewers])(_.id)
 }
 
 
 class HopAdditions(tag: Tag)
-  extends Table[(Long, String, Int, Float, Int, String)](tag, "HOP_ADDITIONS") {
+  extends Table[(Long, String, Int, Float, Int, String)](tag, "hop_additions") {
 
   def id: Rep[Long] = column[Long]("id", O.PrimaryKey)
   // free text but pre-populated in front end with defaults
