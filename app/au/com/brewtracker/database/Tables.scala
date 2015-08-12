@@ -7,6 +7,7 @@ import org.joda.time.DateTime
 /**
  * Created by Lachlan on 11/08/2015.
  */
+case class Brewer(id: Option[Long] = None, firstName: String, lastName: String)
 
 class Brewers(tag:Tag)
   extends Table[(Long, String, String)](tag, "brewers") {
