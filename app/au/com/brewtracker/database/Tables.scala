@@ -6,7 +6,7 @@ import slick.lifted.{ProvenShape, ForeignKeyQuery}
 /**
  * Created by Lachlan on 11/08/2015.
  */
-class Recipe(tag: String)
+class Recipes(tag: Tag)
   extends Table[(Long, String, String, String, String, String)](tag, "RECIPES") {
 
   def id: Rep[Long] = column[Long]("SUP_ID", O.PrimaryKey)
@@ -20,13 +20,13 @@ class Recipe(tag: String)
   def * : ProvenShape[(Long,String, String, String, String, String)] =
     (id, batchName, style, brewer, secondaryBrewers, dateBrewed)
 
-  // A reified foreign key relation that can be navigated to create a join
-  def brewer: ForeignKeyQuery[Suppliers, (Int, String, String, String, String, String)] =
-    foreignKey("SUP_FK", supID, TableQuery[Suppliers])(_.id)
+//  // A reified foreign key relation that can be navigated to create a join
+//  def brewer: ForeignKeyQuery[Suppliers, (Int, String, String, String, String, String)] =
+//    foreignKey("SUP_FK", supID, TableQuery[Suppliers])(_.id)
 }
 
 
-class HopAdditions(tag: String)
+class HopAdditions(tag: Tag)
   extends Table[(Long, String, Int, Float, Int, String)](tag, "HOP_ADDITIONS") {
 
   def id: Rep[Long] = column[Long]("id", O.PrimaryKey)
