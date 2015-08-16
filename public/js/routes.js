@@ -9,11 +9,15 @@ brewTrackerApp.config(['$routeProvider',
 		// 	controller: 'ActivationRequiredCtrl',
 		// 	requireLogin: false
 		// });
+		//$routeProvider.when('/calculators', {
+		//	templateUrl: 'components/calculators/calculators.html',
+		//	requireLogin: false
+		//});
 		$routeProvider.when('/calculators', {
-			templateUrl: 'components/calculators/calculators.html',
-			requireLogin: false
-		});
-		$routeProvider.when('/error', {
+        			templateUrl: 'fragments/calculators.html',
+        			requireLogin: false
+        });
+        $routeProvider.when('/error', {
 			templateUrl: 'components/error.html',
 			requireLogin: false
 		});
