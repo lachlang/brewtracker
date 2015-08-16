@@ -8,4 +8,8 @@ brewTrackerApp.controller('CalculatorsCtrl', ['$scope', '$log', function($scope,
 	ctrl.testy = function() {
 
 	};
+
+	ctrl.efficiency = function(){
+
+	}
 }]);
