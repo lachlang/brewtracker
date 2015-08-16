@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <h1>This will be my calculators page</h1>
+    <div class="container" data-ng-app="Calculators">
+        <h2>Efficiency Calculator</h2>
+        <p>Base Malt Amount: <input type="number" ng-model="BMA"></p>
+        <p>Estimated Points per Pound per Gallon: <input type="number" ng-model="PPG"></p>
+        <p>Batch Size: <input type="number" ng-model="batch"> </p>
+        <p>Target Gravity: <input type="number" ng-model="target"></p>
+
+        <p>Your Efficiency is {{((BMA * PPG / batch)/1000 - target) *100 }}</p>
+    </div>
+</body>
+</html>
