@@ -1,7 +1,7 @@
 package au.com.brewtracker.controllers
 
 import play.api.Play
-import au.com.brewtracker.database.Brewers
+import au.com.brewtracker.dao.BrewersDao
 import play.api.mvc._
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
