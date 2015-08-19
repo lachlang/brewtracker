@@ -1,17 +1,20 @@
 package au.com.brewtracker.controllers
 
+import play.api.Play
 import au.com.brewtracker.database.Brewers
 import play.api.mvc._
-import slick.dbio.DBIO
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import play.api.db.slick.DatabaseConfigProvider
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import slick.driver.JdbcProfile
+import slick.driver.PostgresDriver.api._
 
 //import slick.driver.H2Driver.api.TableQuery
 //import slick.driver.H2Driver.api.Database
-import slick.driver.H2Driver.api._
 
 
 class Application extends Controller {
+
+  protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
   def getBrewers = Action {request =>
 //    def users = TableQuery[Brewers]
