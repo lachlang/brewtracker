@@ -46,8 +46,8 @@ object Brewers {
 
   val brewerQuery = TableQuery[Brewers]
 
-  def findByName(name: String): Future[Option[Brewer]] =
-    dbConfig.db.run(brewerQuery.filter(_.firstName === name).result.headOption)
+  def findByName(name: String): Future[Seq[Brewer]] =
+    dbConfig.db.run(brewerQuery.filter(_.firstName === name).result)
 
   // other queries go here
 }
