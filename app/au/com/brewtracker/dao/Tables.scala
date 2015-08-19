@@ -15,7 +15,7 @@ import org.joda.time.DateTime
  * Created by Lachlan on 11/08/2015.
  */
 
-trait BrewersTable {
+//trait BrewersTable {
 
   class Brewers(tag: Tag) extends Table[Brewer](tag, "brewers") {
     //  extends Table[(Long, String, String, DateTime)](tag, "brewers") {
@@ -38,16 +38,16 @@ trait BrewersTable {
 
     //  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
   }
-}
+//}
 
-class BrewersDao extends BrewersTable with HasDatabaseConfig[JdbcProfile] {
-
+//class BrewersDao extends BrewersTable with HasDatabaseConfig[JdbcProfile] {
+object Brewers {
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
   val brewerQuery = TableQuery[Brewers]
 
   def findByName(name: String): Future[Option[Brewer]] =
-    db.run(brewerQuery.filter(_.firstName === name).result.headOption)
+    dbConfig.db.run(brewerQuery.filter(_.firstName === name).result.headOption)
 
   // other queries go here
 }

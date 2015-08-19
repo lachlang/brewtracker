@@ -1,21 +1,18 @@
 package au.com.brewtracker.controllers
 
 import play.api.Play
-import au.com.brewtracker.dao.BrewersDao
+import au.com.brewtracker.dao.Brewers
 import play.api.mvc._
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.JdbcProfile
-import slick.driver.PostgresDriver.api._
-
-//import slick.driver.H2Driver.api.TableQuery
-//import slick.driver.H2Driver.api.Database
 
 
 class Application extends Controller {
 
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
+//  val Brewers: Option
   def getBrewers = Action {request =>
 //    def users = TableQuery[Brewers]
 //    val db = Database.forConfig("slick.dbs.default.db")
@@ -24,7 +21,7 @@ class Application extends Controller {
 //      Await.result(db.run(users.result), Duration.Inf)
 //    } finally db.close
 
-    Ok("done this thing: " )
+    Ok("done this thing: " + Brewers.findByName("pants"))
   }
 
   def initBrewers = Action {request =>
