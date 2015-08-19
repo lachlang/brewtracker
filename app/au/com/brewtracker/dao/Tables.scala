@@ -1,6 +1,9 @@
 package au.com.brewtracker.dao
 
+import au.com.brewtracker.models.Brewer
+
 import play.api.Play
+import scala.concurrent.Future
 import play.api.db.slick.HasDatabaseConfig
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.H2Driver.api._
@@ -12,10 +15,9 @@ import org.joda.time.DateTime
  * Created by Lachlan on 11/08/2015.
  */
 
-trait BrewersComponent {
+trait BrewersTable {
 
-  class Brewers(tag: Tag)
-    extends Table[(Long, String, String)](tag, "brewers") {
+  class Brewers(tag: Tag) extends Table[Brewer](tag, "brewers") {
     //  extends Table[(Long, String, String, DateTime)](tag, "brewers") {
 
     def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
@@ -31,16 +33,23 @@ trait BrewersComponent {
     // a LHBS finder, but not today...
     //  def address: Rep[String] = column[String]("address_id")
 
-    def * : ProvenShape[(Long, String, String)] = (id, firstName, lastName)
+//    def * : ProvenShape[(Long, String, String)] = (id, firstName, lastName)
+    def * = (id, firstName, lastName) <> (Brewer.tupled, Brewer.unapply _)
 
     //  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
   }
 }
 
-class BrewersDao extends BrewersComponent with HasDatabaseConfig[JdbcProfile] {
+class BrewersDao extends BrewersTable with HasDatabaseConfig[JdbcProfile] {
 
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
+  val brewerQuery = TableQuery[Brewers]
+
+  def findByName(name: String): Future[Option[Brewer]] =
+    db.run(brewerQuery.filter(_.firstName === name).result.headOption)
+
+  // other queries go here
 }
 
 //class Recipes(tag: Tag)
