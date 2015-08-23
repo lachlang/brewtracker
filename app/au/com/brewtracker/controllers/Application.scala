@@ -14,8 +14,8 @@ class Application extends Controller {
 
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
-  val brewersPromise: Future[Seq[Brewer]] = Brewers.findByName("pants")
-  def getBrewers = Action {request =>
+  val matchedBrewers: Future[Seq[Brewer]] = Brewers.findByName("pants")
+  def getBrewers = Action.async {request =>
 //    def users = TableQuery[Brewers]
 //    val db = Database.forConfig("slick.dbs.default.db")
 //
@@ -23,7 +23,8 @@ class Application extends Controller {
 //      Await.result(db.run(users.result), Duration.Inf)
 //    } finally db.close
 
-    Ok("done this thing: " + brewersPromise )
+    matchedBrewers.map(result => Ok("done this thing: " + result))
+//    Ok("done this thing: " + matchedBrewers )
   }
 
   def initBrewers = Action {request =>
