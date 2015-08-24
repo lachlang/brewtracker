@@ -73,7 +73,7 @@ class Recipes(tag: Tag)
 
 
 class HopAdditions(tag: Tag)
-  extends Table[(Long, String, Int, Float, Int, String)](tag, "hop_additions") {
+  extends Table[(Long, String, Int, Float, Int, Option[String])](tag, "hop_additions") {
 
   def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
   // free text but pre-populated in front end with defaults
@@ -81,8 +81,20 @@ class HopAdditions(tag: Tag)
   def grams: Rep[Int] = column[Int]("grams")
   def alphaAcid: Rep[Float] = column[Float]("aa")
   def minutes: Rep[Int] = column[Int]("minutes")
-  def comments: Rep[String] = column[String]("comments")
+  def comments: Rep[Option[String]] = column[Option[String]]("comments")
 
-  def * : ProvenShape[(Long, String, Int, Float, Int, String)] =
+  def * : ProvenShape[(Long, String, Int, Float, Int, Option[String])] =
     (id, name, grams, alphaAcid, minutes, comments)
 }
+
+sealed trait MassUnit
+case object Grams extends MassUnit
+case object Kilos extends MassUnit
+
+//trait MaltAddition(tag: Tag) extends Table(Long, Float, MassUnits) {
+//  def id: Long = column[Long]("id", O.PrimaryKey, O.AutoInc)
+//  def wieght: Float = column[Float]("wieght")
+//  def units: MassUnit: column[MassUnit]("unit")
+//}
+//
+//class GrainAdditions extends MaltAddition

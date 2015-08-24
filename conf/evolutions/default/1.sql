@@ -4,12 +4,32 @@
 
 create table brewers (
   id                        bigint not null,
-  first_name                 varchar(255) not null,
-  last_name                  varchar(255) not null,
-  constraint pk_acting_as primary key (id))
+  first_name                varchar(255) not null,
+  last_name                 varchar(255) not null,
+  constraint pk_brewers primary key (id))
 ;
 
-create sequence acting_as_seq;
+create table hop_additions (
+  id                        bigint not null,
+  name                      varchar(255) not null,
+  grams                     integer not null,
+  aplha_acid                numeric not null,
+  minutes                   integer not null,
+  comments                  varchar(255),
+  constraint pk_hop_additions primary key (id));
+
+create table recipes (
+  id                        bigint not null,
+  batch_name                varchar(255),
+  style                     varchar(255),
+  brewer_id                 bigint not null,
+  secondary_brewers         varchar(255),
+  date_brewed               timestamp not null,
+  constraint pk_recipes primary key (id));
+
+create sequence brewers_seq;
+create sequence hop_additions_seq;
+create sequence recipes_seq;
 
 --
 --create table activation_token (
@@ -52,17 +72,14 @@ create sequence acting_as_seq;
 --  tag_id                    bigint,
 --  constraint pk_connection_tag primary key (id))
 --;
---
---create table country (
---  id                        bigint not null,
---  name                      varchar(255),
---  code                      varchar(255),
---  region_id                 bigint,
---  constraint pk_country primary key (id))
---;
+
 
 # --- !Downs
 
 drop table if exists brewers cascade;
+drop table if exists hop_additions cascade;
+drop table if exists recipes cascade;
 
-drop sequence if exists acting_as_seq;
+drop sequence if exists brewers_seq;
+drop sequence if exists hop_additions_seq;
+drop sequence if exists recipes_seq;

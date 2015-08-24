@@ -16,12 +16,6 @@ class Application extends Controller {
 
   val matchedBrewers: Future[Seq[Brewer]] = Brewers.findByName("pants")
   def getBrewers = Action.async {request =>
-//    def users = TableQuery[Brewers]
-//    val db = Database.forConfig("slick.dbs.default.db")
-//
-//    try {
-//      Await.result(db.run(users.result), Duration.Inf)
-//    } finally db.close
 
     matchedBrewers.map(result => Ok("done this thing: " + result))
 //    Ok("done this thing: " + matchedBrewers )
