@@ -52,37 +52,37 @@ object Brewers {
   // other queries go here
 }
 
-//class Recipes(tag: Tag)
-//  extends Table[(Long, String, String, Long, String, String)](tag, "recipes") {
-//
-//  def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
-//  def batchName: Rep[String] = column[String]("batch_name")
-//  def style: Rep[String] = column[String]("style")
-//  def brewerId: Rep[Long] = column[Long]("brewer_id", O.NotNull)
-//  def secondaryBrewers: Rep[String] = column[String]("SUP_NAME")
-//  def dateBrewed: Rep[String] = column[String]("brew_date")
-// // def hopAdditions: Rep[List[HopAdditions]] =
-//
-//  def * : ProvenShape[(Long,String, String, Long, String, String)] =
-//    (id, batchName, style, brewerId, secondaryBrewers, dateBrewed)
-//
-//  // A reified foreign key relation that can be navigated to create a join
-//  def brewer: ForeignKeyQuery[Brewers, (Long, String, String)] =
-//    foreignKey("brewer_fk", brewerId, TableQuery[Brewers])(_.id)
-//}
-//
-//
-//class HopAdditions(tag: Tag)
-//  extends Table[(Long, String, Int, Float, Int, String)](tag, "hop_additions") {
-//
-//  def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
-//  // free text but pre-populated in front end with defaults
-//  def name: Rep[String] = column[String]("name")
-//  def grams: Rep[Int] = column[Int]("grams")
-//  def alphaAcid: Rep[Float] = column[Float]("aa")
-//  def minutes: Rep[Int] = column[Int]("minutes")
-//  def comments: Rep[String] = column[String]("comments")
-//
-//  def * : ProvenShape[(Long, String, Int, Float, Int, String)] =
-//    (id, name, grams, alphaAcid, minutes, comments)
-//}
+class Recipes(tag: Tag)
+  extends Table[(Long, Option[String], Option[String], Long, Option[String], String)](tag, "recipes") {
+
+  def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
+  def batchName: Rep[Option[String]] = column[Option[String]]("batch_name")
+  def style: Rep[Option[String]] = column[Option[String]]("style")
+  def brewerId: Rep[Long] = column[Long]("brewer_id")
+  def secondaryBrewers: Rep[Option[String]] = column[Option[String]]("additional_brewers")
+  def dateBrewed: Rep[String] = column[String]("brew_date")
+ // def hopAdditions: Rep[List[HopAdditions]] =
+
+  def * : ProvenShape[(Long,Option[String], Option[String], Long, Option[String], String)] =
+    (id, batchName, style, brewerId, secondaryBrewers, dateBrewed)
+
+  // A reified foreign key relation that can be navigated to create a join
+  def brewer: ForeignKeyQuery[Brewers, Brewer] =
+    foreignKey("brewer_fk", brewerId, TableQuery[Brewers])(_.id)
+}
+
+
+class HopAdditions(tag: Tag)
+  extends Table[(Long, String, Int, Float, Int, String)](tag, "hop_additions") {
+
+  def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
+  // free text but pre-populated in front end with defaults
+  def name: Rep[String] = column[String]("name")
+  def grams: Rep[Int] = column[Int]("grams")
+  def alphaAcid: Rep[Float] = column[Float]("aa")
+  def minutes: Rep[Int] = column[Int]("minutes")
+  def comments: Rep[String] = column[String]("comments")
+
+  def * : ProvenShape[(Long, String, Int, Float, Int, String)] =
+    (id, name, grams, alphaAcid, minutes, comments)
+}
