@@ -14,7 +14,7 @@ brewTrackerApp.config(['$routeProvider',
 		//	requireLogin: false
 		//});
 		$routeProvider.when('/calculators', {
-        			templateUrl: 'fragments/calculators.html',
+        			templateUrl: 'components/calculators/calculators.html',
         			requireLogin: false
         });
         $routeProvider.when('/error', {

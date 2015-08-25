@@ -1,6 +1,6 @@
 <div>
     <h1>This will be my calculators page</h1>
-    <div class="container" data-ng-app="Calculators">
+    <div class="container" data-ng-app="brewTracker"  data-ng-controller="CalculatorsCtrl">
         <h2>Efficiency Calculator</h2>
         <p>Base Malt Amount: <input type="number" ng-model="BMA"></p>
         <p>Estimated Points per Pound per Gallon: <input type="number" ng-model="PPG"></p>
@@ -8,5 +8,15 @@
         <p>Target Gravity: <input type="number" ng-model="target"></p>
 
         <p>Your Efficiency is {{((BMA * PPG / batch)/1000 - target) *100 }}</p>
+        <p>Your gravity is {{ gravity() }}</p>
+    </div>
+    <div class="container" data-ng-app="brewTracker" data-ng-controller="CalculatorCtrl">
+        <h2>Colour Calculator</h2>
+        <button onclick="color()">Color</button>
+        <div class="row">
+            <div onchange="color()" class="col-xs-6 col-sm-4"><p>Lovibond: <input type="number" ng-model="Lovibond">{{Lovibond}}</p></div>
+            <div onchange="color()" class="col-xs-6 col-sm-4"><p>SRM: <input type="number" ng-model="SRM">{{SRM}}</p></div>
+            <div onchange="color()" class="col-xs-6 col-sm-4"><p>EBC: <input type="number" ng-model="EBC">{{EBC}}</p></div>
+        </div>
     </div>
 </div>
