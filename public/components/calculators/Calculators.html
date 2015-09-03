@@ -1,6 +1,6 @@
 <div>
     <h1>This will be my calculators page</h1>
-    <div class="container" data-ng-app="brewTracker"  data-ng-controller="CalculatorsCtrl">
+    <div class="container">
         <h2>Efficiency Calculator</h2>
         <p>Base Malt Amount: <input type="number" ng-model="BMA"></p>
         <p>Estimated Points per Pound per Gallon: <input type="number" ng-model="PPG"></p>
@@ -10,13 +10,14 @@
         <p>Your Efficiency is {{((BMA * PPG / batch)/1000 - target) *100 }}</p>
         <p>Your gravity is {{ gravity() }}</p>
     </div>
-    <div class="container" data-ng-app="brewTracker" data-ng-controller="CalculatorCtrl">
+    <div class="container" data-ng-controller="CalculatorsCtrl">
         <h2>Colour Calculator</h2>
-        <button onclick="color()">Color</button>
-        <div class="row">
-            <div onchange="color()" class="col-xs-6 col-sm-4"><p>Lovibond: <input type="number" ng-model="Lovibond">{{Lovibond}}</p></div>
-            <div onchange="color()" class="col-xs-6 col-sm-4"><p>SRM: <input type="number" ng-model="SRM">{{SRM}}</p></div>
-            <div onchange="color()" class="col-xs-6 col-sm-4"><p>EBC: <input type="number" ng-model="EBC">{{EBC}}</p></div>
-        </div>
+
+        <div class="row"style="padding-bottom:15px">
+            <div title="Lovibond" class="col-xs-6 col-sm-4">Lovibond<input type="number" ng-change="Lovibond()" ng-model="Lovibond"></div>
+            <div title="SRM" class="col-xs-6 col-sm-4">SRM<input type="number" ng-model="SRM"></div>
+         </div>
+        <p>Lovibond to SRM = {{ SRM() }}</p>
+        <p>SRM to Lovibond = {{ Lovibond() }}</p>
     </div>
 </div>
