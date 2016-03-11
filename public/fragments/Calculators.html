@@ -5,15 +5,23 @@
     <title></title>
 </head>
 <body>
-    <h1>This will be my calculators page</h1>
-    <div class="container" data-ng-app="Calculators">
-        <h2>Efficiency Calculator</h2>
-        <p>Base Malt Amount: <input type="number" ng-model="BMA"></p>
-        <p>Estimated Points per Pound per Gallon: <input type="number" ng-model="PPG"></p>
-        <p>Batch Size: <input type="number" ng-model="batch"> </p>
-        <p>Target Gravity: <input type="number" ng-model="target"></p>
-
-        <p>Your Efficiency is {{((BMA * PPG / batch)/1000 - target) *100 }}</p>
+    <h1 style="text-align:center">This will be my calculators page</h1>
+    <div class="container-fluid" data-ng-app="Calculators" data-ng-controller="efficiency">
+        <div>
+            <div class="row">
+                <div class="col-mid-12"><h2>Efficiency Calculator</h2></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3"><p>Base Malt Amount: <input type="number" ng-model="BMA"></p></div>
+                <div class="col-sm-3"><p>Estimated Points per Pound per Gallon: <input type="number" ng-model="PPG"></p></div>
+                <div class="col-sm-3"><p>Batch Size: <input type="number" ng-model="batch"> </p></div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">Gravity = {{gravity()}}</div>
+            </div>
+        </div>
     </div>
+
+
 </body>
 </html>
