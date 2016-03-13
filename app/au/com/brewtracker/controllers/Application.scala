@@ -2,18 +2,21 @@ package au.com.brewtracker.controllers
 
 import play.api.Play
 import au.com.brewtracker.models.Brewer
-import au.com.brewtracker.dao.Brewers
+import au.com.brewtracker.dao.{Recipes, Brewers}
 import play.api.mvc._
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.JdbcProfile
 
-import scala.concurrent.Future
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
+import slick.driver.PostgresDriver.api._
 
 class Application extends Controller {
 
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
+  // LG 2016-03-12 Wow, this stuff doesn't look right :(
   val matchedBrewers: Future[Seq[Brewer]] = Brewers.findByName("pants")
   def getBrewers = Action.async {request =>
 
@@ -22,7 +25,32 @@ class Application extends Controller {
   }
 
   def initBrewers = Action {request =>
-//    val users = TableQuery[Brewers]
+
+    println("log this mofo")
+    val db = Database.forConfig("slick.dbs.default.db")
+
+    try {
+      val brewers: TableQuery[Brewers] = TableQuery[Brewers]
+
+      println("log this too mofo")
+      // the query interface for the Coffees table
+      val recipes: TableQuery[Recipes] = TableQuery[Recipes]
+
+      val setupAction: DBIO[Unit] = DBIO.seq(
+        // Insert some suppliers
+        brewers += Brewer(101L, "Dave", "Brewer"),
+        brewers += Brewer( 49L, "John", "Guy"),
+        brewers += Brewer(150L, "Matt", "Ale")
+      )
+
+      val setupFuture: Future[Unit] = db.run(setupAction)
+
+      println("start to block")
+      Await.result(setupFuture, Duration.Inf)
+
+    } finally db.close
+
+    //    val users = TableQuery[Brewers]
 //
 //    val db = Database.forConfig("slick.dbs.default.db")
 //    try {

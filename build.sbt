@@ -1,4 +1,4 @@
-name := "BrewTracker"
+name := """BrewTracker"""
 
 version := "1.0-SNAPSHOT"
 
