@@ -3,7 +3,7 @@ package au.com.brewtracker.models
 /**
  * Created by lachlang on 19/08/2015.
  */
-case class Brewer(id: Long, firstName: String, lastName: String)
+case class Brewer(firstName: String, lastName: String, id: Option[Long] = None)
 
 case class Credential(id: Long, user: String, password: String, hash: String)
 

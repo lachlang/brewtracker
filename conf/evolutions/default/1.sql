@@ -3,7 +3,7 @@
 # --- !Ups
 
 create table brewers (
-  id                        bigint not null,
+  id                        serial,
   first_name                varchar(255) not null,
   last_name                 varchar(255) not null,
   constraint pk_brewers primary key (id))

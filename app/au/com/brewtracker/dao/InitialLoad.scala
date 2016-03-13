@@ -25,9 +25,9 @@ object InitialLoad extends App {
       (brewers.schema ++ recipes.schema).create,
 
       // Insert some suppliers
-      brewers += Brewer(101, "Dave", "Brewer"),
-      brewers += Brewer( 49, "John", "Guy"),
-      brewers += Brewer(150, "Matt", "Ale")
+      brewers += Brewer("Dave", "Brewer", Some(101L)),
+      brewers += Brewer("John", "Guy",    Some(49L)),
+      brewers += Brewer("Matt", "Ale",    Some(150L))
     )
 
     val setupFuture: Future[Unit] = db.run(setupAction)

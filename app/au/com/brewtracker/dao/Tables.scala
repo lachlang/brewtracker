@@ -34,7 +34,7 @@ import org.joda.time.DateTime
     //  def address: Rep[String] = column[String]("address_id")
 
 //    def * : ProvenShape[(Long, String, String)] = (id, firstName, lastName)
-    def * = (id, firstName, lastName) <> (Brewer.tupled, Brewer.unapply _)
+    def * = (firstName, lastName, id.?) <> (Brewer.tupled, Brewer.unapply _)
 
     //  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
   }

@@ -38,9 +38,12 @@ class Application extends Controller {
 
       val setupAction: DBIO[Unit] = DBIO.seq(
         // Insert some suppliers
-        brewers += Brewer(101L, "Dave", "Brewer"),
-        brewers += Brewer( 49L, "John", "Guy"),
-        brewers += Brewer(150L, "Matt", "Ale")
+        brewers += Brewer("Dave", "Brewer"),
+        brewers += Brewer("John", "Guy"),
+        brewers += Brewer("Matt", "Ale")
+//        brewers += Brewer(101L, "Dave", "Brewer"),
+//        brewers += Brewer( 49L, "John", "Guy"),
+//        brewers += Brewer(150L, "Matt", "Ale")
       )
 
       val setupFuture: Future[Unit] = db.run(setupAction)
