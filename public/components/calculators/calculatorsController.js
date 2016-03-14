@@ -8,4 +8,11 @@ brewTrackerApp.controller('CalculatorsCtrl', ['$scope', '$log', function($scope,
 	ctrl.testy = function() {
 
 	};
+
+	$scope.BMA = 10;
+	$scope.PPG = 37;
+	$scope.batch = 6;
+	$scope.gravity = function(){
+		return $scope.BMA * $scope.PPG / $scope.batch;
+	}
 }]);

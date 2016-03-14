@@ -1,4 +1,4 @@
-<div class="container-fluid" data-ng-app="Calculators" data-ng-controller="efficiency">
+<div class="container-fluid" data-ng-controller="CalculatorsCtrl as Calcs">
     <h1 style="text-align:center">This will be my calculators page</h1>
     <div>
         <div class="row">
@@ -11,7 +11,6 @@
             <div class="col-sm-3"><p>Batch Size: <input type="number" data-ng-model="batch"> </p></div>
         </div>
         <div class="row">
-            <p>{{pants}}</p><p>{{1 + 3}}</p>
             <div class="col-sm-3">Gravity = {{gravity()}}</div>
         </div>
     </div>
