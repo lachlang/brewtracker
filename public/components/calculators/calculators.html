@@ -1,17 +1,51 @@
-<div class="container-fluid" data-ng-controller="CalculatorsCtrl as Calcs">
+<div class="container" data-ng-controller="CalculatorsCtrl as Calcs">
     <h1 style="text-align:center">This will be my calculators page</h1>
-    <div>
-        <div class="row">
-            <div class="col-mid-12"><h2>Efficiency Calculator</h2></div>
+    <div class="row">
+        <!--<div class="col-mid-1"></div><div class="col-mid-11">-->
+        <div class="col-mid-12">
+            <h2>Efficiency Calculator</h2>
         </div>
-        <div class="row">
-            <div class="col-sm-3"><p>Base Malt : <input type="number" data-ng-model="BMA"></p></div>
-            <!-- TODO: some sort of hover help and unit toggle -->
-            <div class="col-sm-3"><p>Estimated Points per Pound per Gallon: <input type="number" data-ng-model="PPG"></p></div>
-            <div class="col-sm-3"><p>Batch Size: <input type="number" data-ng-model="batch"> </p></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><p>Base Malt : <input type="number" data-ng-model="BMA"></p></div>
+        <!-- TODO: some sort of hover help and unit toggle -->
+        <div class="col-sm-3"><p>Estimated Points per Pound per Gallon: <input type="number" data-ng-model="PPG"></p></div>
+        <div class="col-sm-3"><p>Batch Size: <input type="number" data-ng-model="batch"> </p></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">Gravity = {{gravity()}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            Base Malt Mass (kg):
         </div>
-        <div class="row">
-            <div class="col-sm-3">Gravity = {{gravity()}}</div>
+        <div class="col-md-4">
+            <input type="number" data-ng-model="Calcs.bma">
         </div>
+        <div class="col-md-2">
+            <strong>Estimated Gravity:</strong>
+        </div>
+        <div class="col-md-4">
+            <strong>{{Calcs.gravityValue}}</strong>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Grist (kilos per litre):
+        </div>
+        <div class="col-md-4">
+            <input type="number" data-ng-model="Calcs.grist">
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Batch Size:
+        </div>
+        <div class="col-md-4">
+            <input type="number" data-ng-model="Calcs.batch">
+        </div>
+        <div class="col-md-6"></div>
     </div>
 </div>
