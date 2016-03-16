@@ -49,7 +49,10 @@ object Brewers {
   def findByName(name: String): Future[Seq[Brewer]] =
     dbConfig.db.run(brewerQuery.filter(_.firstName === name).result)
 
-//  def registerBrewer(brewer: Brewer): Future[Brewer] =
+  def findAll: Future[Seq[Brewer]] =
+    dbConfig.db.run(brewerQuery.result)
+
+  //  def registerBrewer(brewer: Brewer): Future[Brewer] =
 //    dbConfig.db.run(brewerQuery.insertOrUpdate(brewer))
   // other queries go here
 }

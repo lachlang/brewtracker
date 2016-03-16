@@ -20,7 +20,9 @@ class Application extends Controller {
   val matchedBrewers: Future[Seq[Brewer]] = Brewers.findByName("pants")
   def getBrewers = Action.async {request =>
 
-    matchedBrewers.map(result => Ok("done this thing: " + result))
+    //TODO: use a format string FFS
+    Brewers.findAll.map(result => Ok("Returned row count: " + result.size + "\n{brewers: {" + result.foreach{
+      case Brewer(firstName,lastName, Some(id)) => "id:\"" + id + "\", firstName: \"" + firstName +  "\", lastName: \"" + lastName + "\"},\n"} + "}"))
 //    Ok("done this thing: " + matchedBrewers )
   }
 
