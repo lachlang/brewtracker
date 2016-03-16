@@ -6,7 +6,7 @@ import play.api.Play
 import scala.concurrent.Future
 import play.api.db.slick.HasDatabaseConfig
 import play.api.db.slick.DatabaseConfigProvider
-import slick.driver.H2Driver.api._
+import slick.driver.PostgresDriver.api._
 import slick.lifted.{ProvenShape, ForeignKeyQuery}
 import slick.driver.JdbcProfile
 import org.joda.time.DateTime
@@ -33,8 +33,8 @@ import org.joda.time.DateTime
     // a LHBS finder, but not today...
     //  def address: Rep[String] = column[String]("address_id")
 
-//    def * : ProvenShape[(Long, String, String)] = (id, firstName, lastName)
-    def * = (firstName, lastName, id.?) <> (Brewer.tupled, Brewer.unapply _)
+//    def * : ProvenShape[Brewer] = (firstName, lastName, id)
+    def * = (firstName, lastName, id.?) <> ((Brewer.apply _).tupled, Brewer.unapply _)
 
     //  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
   }

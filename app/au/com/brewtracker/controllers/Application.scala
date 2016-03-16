@@ -3,7 +3,8 @@ package au.com.brewtracker.controllers
 import play.api.Play
 import au.com.brewtracker.models.Brewer
 import au.com.brewtracker.dao.{Recipes, Brewers}
-import play.api.mvc._
+import play.api.mvc.{Controller, Action}
+import play.api.libs.json.Json
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import slick.driver.JdbcProfile
@@ -17,13 +18,10 @@ class Application extends Controller {
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
   // LG 2016-03-12 Wow, this stuff doesn't look right :(
-  val matchedBrewers: Future[Seq[Brewer]] = Brewers.findByName("pants")
+//  val matchedBrewers: Future[Seq[Brewer]] = Brewers.findByName("pants")
   def getBrewers = Action.async {request =>
 
-    //TODO: use a format string FFS
-    Brewers.findAll.map(result => Ok("Returned row count: " + result.size + "\n{brewers: {" + result.foreach{
-      case Brewer(firstName,lastName, Some(id)) => "id:\"" + id + "\", firstName: \"" + firstName +  "\", lastName: \"" + lastName + "\"},\n"} + "}"))
-//    Ok("done this thing: " + matchedBrewers )
+    Brewers.findAll.map(result => Ok(Json.toJson(result)))
   }
 
   def initBrewers = Action {request =>
