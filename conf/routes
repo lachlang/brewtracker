@@ -7,6 +7,7 @@ GET     /                           controllers.Assets.at(path="/public", file="
 
 GET     /api/test/users             au.com.brewtracker.controllers.Application.getBrewers
 GET     /api/test/init              au.com.brewtracker.controllers.Application.initBrewers
+PUT     /api/test/users             au.com.brewtracker.controllers.Application.addBrewer
 
 PUT     /api/auth/login             au.com.brewtracker.controllers.Authentication.login
 PUT     /api/auth/logout            au.com.brewtracker.controllers.Authentication.logout

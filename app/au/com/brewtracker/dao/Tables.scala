@@ -4,12 +4,12 @@ import au.com.brewtracker.models.Brewer
 
 import play.api.Play
 import scala.concurrent.Future
-import play.api.db.slick.HasDatabaseConfig
+//import play.api.db.slick.HasDatabaseConfig
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.PostgresDriver.api._
 import slick.lifted.{ProvenShape, ForeignKeyQuery}
 import slick.driver.JdbcProfile
-import org.joda.time.DateTime
+//import org.joda.time.DateTime
 
 /**
  * Created by Lachlan on 11/08/2015.
@@ -49,8 +49,12 @@ object Brewers {
   def findByName(name: String): Future[Seq[Brewer]] =
     dbConfig.db.run(brewerQuery.filter(_.firstName === name).result)
 
+  def add(brewer: Brewer) =
+    dbConfig.db.run(brewerQuery.insertOrUpdate(brewer))
+
   def findAll: Future[Seq[Brewer]] =
     dbConfig.db.run(brewerQuery.result)
+
 
   //  def registerBrewer(brewer: Brewer): Future[Brewer] =
 //    dbConfig.db.run(brewerQuery.insertOrUpdate(brewer))
