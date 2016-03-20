@@ -8,12 +8,12 @@
         <p><a class="btn btn-primary btn-lg" href="#/about" role="button">Learn more &raquo;</a></p>
       </div>
       <div class="col-md-4">
-        <form data-ng-submit="register()">
-          <input type="text" placeholder="First Name">
-          <input type="text" placeholder="Last Name">
-          <input type="text" placeholder="Email">
-          <input type="text" placeholder="Password">
-          <input class="btn btn-primary btn-md" type="submit" value="Register">
+        <form data-ng-controller="RegistrationCtrl as Registration" data-ng-submit="Registration.register()">
+          <input type="text" class="form-control" placeholder="First Name">
+          <input type="text" class="form-control" placeholder="Last Name">
+          <input type="text" class="form-control" placeholder="Email Address">
+          <input type="text" class="form-control" placeholder="Password">
+          <input class="btn btn-primary btn-md form-control" type="submit" value="Register">
         </form>
       </div>
     </div>
