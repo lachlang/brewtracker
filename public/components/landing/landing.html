@@ -9,10 +9,10 @@
       </div>
       <div class="col-md-4">
         <form data-ng-controller="RegistrationCtrl as Registration" data-ng-submit="Registration.register()">
-          <input type="text" class="form-control" placeholder="First Name">
-          <input type="text" class="form-control" placeholder="Last Name">
-          <input type="text" class="form-control" placeholder="Email Address">
-          <input type="text" class="form-control" placeholder="Password">
+          <input type="text" class="form-control" placeholder="First Name" data-ng-model="Registration.firstName">
+          <input type="text" class="form-control" placeholder="Last Name" data-ng-model="Registration.lastName">
+          <input type="text" class="form-control" placeholder="Email Address" data-ng-model="Registration.email">
+          <input type="text" class="form-control" placeholder="Password" data-ng-model="Registration.password">
           <input class="btn btn-primary btn-md form-control" type="submit" value="Register">
         </form>
       </div>
