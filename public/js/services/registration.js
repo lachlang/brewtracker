@@ -3,8 +3,8 @@ btServices.service('Registration', ['$http', '$log', function($http, $log){
 
 		register: function(firstName, lastName, emailAddress, password) {
 			return $http({
-				method: 'PUT',
-				url: '/api/registration',
+				method: 'POST',
+				url: '/api/register',
 				data: {
     				"apiVersion" : "1.0",
     				"data" : {
