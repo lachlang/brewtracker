@@ -6,13 +6,18 @@ import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
+import scala.concurrent.Future
+
 /**
  * Created by lachlang on 31/07/2015.
  */
 class Registration extends Controller {
 
   def register = Action.async(parse.json(maxLength = 2000)) { request =>
-    val brewer: Brewer = request.body.validate[Brewer].get
-    Brewers.add(brewer).map(result => Created(Json.toJson(result)))
+    val body: Option[Brewer] = request.body.validate[Brewer].asOpt
+    body match {
+      case Some(brewer) => Brewers.add(brewer).map(result => Created(Json.toJson(result)))
+      case None => Future(BadRequest)
+    }
   }
 }

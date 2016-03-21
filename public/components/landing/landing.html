@@ -8,14 +8,17 @@
         <p><a class="btn btn-primary btn-lg" href="#/about" role="button">Learn more &raquo;</a></p>
       </div>
       <div class="col-md-4">
-        <form name="registrationForm" data-ng-controller="RegistrationCtrl as Registration" data-ng-submit="Registration.register(registrationForm.$valid)">
-          <input type="text" class="form-control" placeholder="First Name" data-ng-model="Registration.firstName" required data-ng-maxlength="100">
-          <input type="text" class="form-control" placeholder="Last Name" data-ng-model="Registration.lastName" required data-ng-maxlength="100">
-          <input type="email" class="form-control" placeholder="Email Address" data-ng-model="Registration.email" required data-ng-maxlength="100">
-          <input type="password" class="form-control" placeholder="Password" data-ng-model="Registration.password"  required data-ng-maxlength="100">
-          <input class="btn btn-primary btn-md form-control" type="submit" value="Register">
-          <span>{{Registration.registered}}</span>
-        </form>
+        <div class="form-group" data-ng-controller="RegistrationCtrl as Registration" >
+          Test <a data-ng-click="Registration.test()">link</a><p>{{Registration.testResponse}}</p>
+          <form name="registrationForm" data-ng-submit="Registration.register(registrationForm.$valid)">
+            <input type="text" class="form-control" placeholder="First Name" data-ng-model="Registration.firstName" required data-ng-maxlength="100">
+            <input type="text" class="form-control" placeholder="Last Name" data-ng-model="Registration.lastName" required data-ng-maxlength="100">
+            <input type="email" class="form-control" placeholder="Email Address" data-ng-model="Registration.email" required data-ng-maxlength="100">
+            <input type="password" class="form-control" placeholder="Password" data-ng-model="Registration.password"  required data-ng-maxlength="100">
+            <input class="btn btn-primary btn-md form-control" type="submit" value="Register">
+            <span>{{Registration.registered}}</span>
+          </form>
+        </div>
       </div>
     </div>
   </div>

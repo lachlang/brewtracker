@@ -33,4 +33,18 @@ function($scope, $log, Registration, $location, Errors) {
 				}
 			});
 	};
+
+	ctrl.test = function() {
+		Registration.register("Lachlan", "Gartside", "lachlang@gmail.com", "pants").then(
+			function(result) {
+				$log.debug("[RegistrationCtrl.test] Success: [" + result.status + "]");
+				$log.debug(result.data);
+				ctrl.testResponse = result.data
+			}, function(result) {
+				$log.debug("[RegistrationCtrl.test] Error: [" + result.status + "]");
+				$log.debug(result.data);
+				ctrl.testResponse = result.data
+
+			});
+	}
 }]);
