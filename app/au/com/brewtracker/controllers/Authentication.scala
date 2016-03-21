@@ -12,7 +12,9 @@ class Authentication extends Controller {
   def login =
     Action{request =>
       //(username: String, password: String)
-      Ok("logged in")
+//      Ok("logged in")
+      NotImplemented
   }
-  def logout = Action{Ok("logged out")}
+
+  def logout = Action{ NotImplemented }
 }

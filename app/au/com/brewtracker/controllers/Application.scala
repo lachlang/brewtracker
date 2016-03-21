@@ -13,6 +13,10 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import slick.driver.PostgresDriver.api._
 
+/**
+ * TODO: Remove this class
+ * LG: 2016-03-21 This is a test class for prototyping
+ */
 class Application extends Controller {
 
 //  protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)

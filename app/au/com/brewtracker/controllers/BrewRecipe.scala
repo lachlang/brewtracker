@@ -9,5 +9,5 @@ import play.api.mvc._
 
 class BrewRecipe extends Controller{
 
-  def recipeList(id: Long) = Action{request => Ok("Hello World :) \nbrewerId: '" + id + "'\n[" + request+ "]")}
+  def recipeList(id: Long) = Action{request => NotImplemented}
 }
