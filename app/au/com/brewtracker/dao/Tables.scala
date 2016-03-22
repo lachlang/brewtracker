@@ -1,6 +1,7 @@
 package au.com.brewtracker.dao
 
 import au.com.brewtracker.models.Brewer
+import au.com.brewtracker.models.PlainTextCredentials
 
 import play.api.Play
 import scala.concurrent.Future
@@ -26,6 +27,12 @@ import slick.driver.JdbcProfile
 
     def lastName: Rep[String] = column[String]("last_name")
 
+//    def credentialId: Rep[Long] = column[Long]("cred_id")
+
+    def email: Rep[String] = column[String]("email")
+
+    def hash: Rep[String] = column[String]("hash")
+
     // optional column so we can post a happy birthday message on login
     //  def dob: Rep[DateTime] = column[DateTime]("dob")
 
@@ -34,7 +41,15 @@ import slick.driver.JdbcProfile
     //  def address: Rep[String] = column[String]("address_id")
 
 //    def * : ProvenShape[Brewer] = (firstName, lastName, id)
-    def * = (id.?, firstName, lastName) <> ((Brewer.apply _).tupled, Brewer.unapply _)
+    def * = (id.?, firstName, lastName, (email, hash)).shaped <> (
+      { case (id, firstName, lastName, (email, hash)) =>
+        Brewer(id, firstName, lastName, PlainTextCredentials.apply(email, hash))
+//        (Brewer.apply _).tupled
+      },
+      { b: Brewer =>
+        def f1(p: PlainTextCredentials) = PlainTextCredentials.unapply(p).get
+        Some((b.id, b.firstName, b.lastName, f1(b.credentials)))
+      })
 
     //  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
   }

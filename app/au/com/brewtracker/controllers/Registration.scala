@@ -14,10 +14,11 @@ import scala.concurrent.Future
 class Registration extends Controller {
 
   def register = Action.async(parse.json(maxLength = 2000)) { request =>
-    val body: Option[Brewer] = request.body.validate[Brewer].asOpt
-    body match {
-      case Some(brewer) => Brewers.add(brewer).map(result => Created(Json.toJson(result)))
-      case None => Future(BadRequest)
-    }
+//    val body: Option[Brewer] = request.body.validate[Brewer].asOpt
+//    body match {
+//      case Some(brewer) => Brewers.add(brewer).map(result => Created(Json.toJson(result)))
+//      case None => Future(BadRequest)
+//    }
+    Future(Ok)
   }
 }

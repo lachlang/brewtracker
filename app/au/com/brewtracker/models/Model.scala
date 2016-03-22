@@ -10,24 +10,24 @@ import play.api.libs.functional.syntax._
 /**
  * Created by lachlang on 19/08/2015.
  */
-case class Brewer(id: Option[Long], firstName: String, lastName: String)//, id: Option[Long] = None)
+case class Brewer(id: Option[Long], firstName: String, lastName: String, credentials: PlainTextCredentials)
 
-object Brewer {
-
-  // In this format, an undefined friends property is mapped to an empty list
-  implicit val format: Format[Brewer] = (
-      (__ \ "id").formatNullable[Long] and
-      (__ \ "firstName").format[String] and
-      (__ \ "lastName").format[String]
-    )(Brewer.apply, unlift(Brewer.unapply))
-
-  implicit val brewerReads: Reads[Brewer] = (
-    (JsPath \ "id").readNullable[Long] and
-    (JsPath \ "firstName").read[String](minLength[String](1)) and
-    (JsPath \ "lastName").read[String](minLength[String](1))
-  )(Brewer.apply _)
-
-}
+//object Brewer {
+//
+//  // In this format, an undefined friends property is mapped to an empty list
+//  implicit val format: Format[Brewer] = (
+//      (__ \ "id").formatNullable[Long] and
+//      (__ \ "firstName").format[String] and
+//      (__ \ "lastName").format[String]
+//    )(Brewer.apply, unlift(Brewer.unapply))
+//
+//  implicit val brewerReads: Reads[Brewer] = (
+//    (JsPath \ "id").readNullable[Long] and
+//    (JsPath \ "firstName").read[String](minLength[String](1)) and
+//    (JsPath \ "lastName").read[String](minLength[String](1))
+//  )(Brewer.apply _)
+//
+//}
 
 case class PlainTextCredentials(email: String, hash: String)
 
@@ -55,7 +55,7 @@ object HashedCredentials {
     )(HashedCredentials.apply, unlift(HashedCredentials.unapply))
 
   implicit val credentialReads: Reads[HashedCredentials] = (
-      (JsPath \ "email").readNullable[Long] and
+      (JsPath \ "id").readNullable[Long] and
       (JsPath \ "email").read[String] and
       (JsPath \ "hash").read[String]
     ) (HashedCredentials.apply _)
