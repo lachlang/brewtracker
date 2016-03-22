@@ -1,10 +1,8 @@
 package au.com.brewtracker.models
 
-import play.api.libs.json.__
 import play.api.libs.json.Format
+import play.api.libs.json.Format._
 import play.api.libs.json.JsPath
-import play.api.libs.json.Reads
-import play.api.libs.json.Reads._
 import play.api.libs.functional.syntax._
 
 /**
@@ -12,36 +10,24 @@ import play.api.libs.functional.syntax._
  */
 case class Brewer(id: Option[Long], firstName: String, lastName: String, credentials: PlainTextCredentials)
 
-//object Brewer {
-//
-//  // In this format, an undefined friends property is mapped to an empty list
-//  implicit val format: Format[Brewer] = (
-//      (__ \ "id").formatNullable[Long] and
-//      (__ \ "firstName").format[String] and
-//      (__ \ "lastName").format[String]
-//    )(Brewer.apply, unlift(Brewer.unapply))
-//
-//  implicit val brewerReads: Reads[Brewer] = (
-//    (JsPath \ "id").readNullable[Long] and
-//    (JsPath \ "firstName").read[String](minLength[String](1)) and
-//    (JsPath \ "lastName").read[String](minLength[String](1))
-//  )(Brewer.apply _)
-//
-//}
+object Brewer {
+
+  implicit val format: Format[Brewer] = (
+    (JsPath \ "id").formatNullable[Long] and
+    (JsPath \ "firstName").format[String] and
+    (JsPath \ "lastName").format[String] and
+    (JsPath \ "creds").format[PlainTextCredentials]
+  )(Brewer.apply, unlift(Brewer.unapply))
+}
 
 case class PlainTextCredentials(email: String, hash: String)
 
 object PlainTextCredentials {
 
   implicit val format: Format[PlainTextCredentials] = (
-      (__ \ "email").format[String] and
-      (__ \ "password").format[String]
+      (JsPath \ "email").format[String] and
+      (JsPath \ "password").format[String]
     )(PlainTextCredentials.apply, unlift(PlainTextCredentials.unapply))
-
-  implicit val credentialReads: Reads[PlainTextCredentials] = (
-      (JsPath \ "email").read[String] and
-      (JsPath \ "password").read[String]
-    ) (PlainTextCredentials.apply _)
 }
 
 case class HashedCredentials(id: Option[Long], email: String, hash: String)
@@ -49,16 +35,10 @@ case class HashedCredentials(id: Option[Long], email: String, hash: String)
 object HashedCredentials {
 
   implicit val format: Format[HashedCredentials] = (
-      (__ \ "id").formatNullable[Long] and
-      (__ \ "email").format[String] and
-      (__ \ "hash").format[String]
-    )(HashedCredentials.apply, unlift(HashedCredentials.unapply))
-
-  implicit val credentialReads: Reads[HashedCredentials] = (
-      (JsPath \ "id").readNullable[Long] and
-      (JsPath \ "email").read[String] and
-      (JsPath \ "hash").read[String]
-    ) (HashedCredentials.apply _)
+    (JsPath \ "id").formatNullable[Long] and
+    (JsPath \ "email").format[String] and
+    (JsPath \ "hash").format[String]
+  )(HashedCredentials.apply, unlift(HashedCredentials.unapply))
 }
 
 case class Recipe(id: Long)

@@ -23,14 +23,12 @@ class Application extends Controller {
 
   def getBrewers = Action.async {request =>
 
-    Brewers.findAll.map(result => Ok)//(Json.toJson(result)))
+    Brewers.findAll.map(result => Ok(Json.toJson(result)))
   }
 
-  def addBrewer = Action { request =>
-//  def addBrewer = Action.async(parse.json(maxLength = 2000)) { request =>
-//    val brewer: Brewer = request.body.validate[Brewer].get
-//    Brewers.add(brewer).map(result => Ok(Json.toJson(result)))
-    Ok
+  def addBrewer = Action.async(parse.json(maxLength = 2000)) { request =>
+    val brewer: Brewer = request.body.validate[Brewer].get
+    Brewers.add(brewer).map(result => Ok(Json.toJson(result)))
   }
 
   def initBrewers = Action {request =>
