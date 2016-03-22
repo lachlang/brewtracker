@@ -34,7 +34,7 @@ import slick.driver.JdbcProfile
     //  def address: Rep[String] = column[String]("address_id")
 
 //    def * : ProvenShape[Brewer] = (firstName, lastName, id)
-    def * = (firstName, lastName, id.?) <> ((Brewer.apply _).tupled, Brewer.unapply _)
+    def * = (id.?, firstName, lastName) <> ((Brewer.apply _).tupled, Brewer.unapply _)
 
     //  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
   }

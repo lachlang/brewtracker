@@ -10,25 +10,56 @@ import play.api.libs.functional.syntax._
 /**
  * Created by lachlang on 19/08/2015.
  */
-case class Brewer(firstName: String, lastName: String, id: Option[Long] = None)
+case class Brewer(id: Option[Long], firstName: String, lastName: String)//, id: Option[Long] = None)
 
 object Brewer {
 
   // In this format, an undefined friends property is mapped to an empty list
   implicit val format: Format[Brewer] = (
+      (__ \ "id").formatNullable[Long] and
       (__ \ "firstName").format[String] and
-      (__ \ "lastName").format[String] and
-      (__ \ "id").formatNullable[Long]
+      (__ \ "lastName").format[String]
     )(Brewer.apply, unlift(Brewer.unapply))
 
   implicit val brewerReads: Reads[Brewer] = (
+    (JsPath \ "id").readNullable[Long] and
     (JsPath \ "firstName").read[String](minLength[String](1)) and
-    (JsPath \ "lastName").read[String](minLength[String](1)) and
-    (JsPath \ "id").readNullable[Long]
+    (JsPath \ "lastName").read[String](minLength[String](1))
   )(Brewer.apply _)
+
 }
 
-case class Credential(id: Long, user: String, password: String, hash: String)
+case class PlainTextCredentials(email: String, hash: String)
+
+object PlainTextCredentials {
+
+  implicit val format: Format[PlainTextCredentials] = (
+      (__ \ "email").format[String] and
+      (__ \ "password").format[String]
+    )(PlainTextCredentials.apply, unlift(PlainTextCredentials.unapply))
+
+  implicit val credentialReads: Reads[PlainTextCredentials] = (
+      (JsPath \ "email").read[String] and
+      (JsPath \ "password").read[String]
+    ) (PlainTextCredentials.apply _)
+}
+
+case class HashedCredentials(id: Option[Long], email: String, hash: String)
+
+object HashedCredentials {
+
+  implicit val format: Format[HashedCredentials] = (
+      (__ \ "id").formatNullable[Long] and
+      (__ \ "email").format[String] and
+      (__ \ "hash").format[String]
+    )(HashedCredentials.apply, unlift(HashedCredentials.unapply))
+
+  implicit val credentialReads: Reads[HashedCredentials] = (
+      (JsPath \ "email").readNullable[Long] and
+      (JsPath \ "email").read[String] and
+      (JsPath \ "hash").read[String]
+    ) (HashedCredentials.apply _)
+}
 
 case class Recipe(id: Long)
 
