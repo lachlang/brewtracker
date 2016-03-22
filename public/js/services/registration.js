@@ -10,8 +10,10 @@ btServices.service('Registration', ['$http', '$log', function($http, $log){
     				"data" : {
     					"firstName": firstName,
     					"lastName": lastName,
-    					"emailAddress": emailAddress,
-    					"password": password
+    					"creds": {
+							"email": emailAddress,
+							"hash": password
+						}
     				}
 				}
 			});

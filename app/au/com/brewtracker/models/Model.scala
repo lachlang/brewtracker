@@ -8,7 +8,7 @@ import play.api.libs.functional.syntax._
 /**
  * Created by lachlang on 19/08/2015.
  */
-case class Brewer(id: Option[Long], firstName: String, lastName: String, credentials: PlainTextCredentials)
+case class Brewer(id: Option[Long], firstName: String, lastName: String, credentials: HashedCredentials)
 
 object Brewer {
 
@@ -16,7 +16,7 @@ object Brewer {
     (JsPath \ "id").formatNullable[Long] and
     (JsPath \ "firstName").format[String] and
     (JsPath \ "lastName").format[String] and
-    (JsPath \ "creds").format[PlainTextCredentials]
+    (JsPath \ "creds").format[HashedCredentials]
   )(Brewer.apply, unlift(Brewer.unapply))
 }
 

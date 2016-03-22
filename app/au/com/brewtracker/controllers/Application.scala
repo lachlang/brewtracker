@@ -1,7 +1,7 @@
 package au.com.brewtracker.controllers
 
 import play.api.Play
-import au.com.brewtracker.models.{PlainTextCredentials, Brewer}
+import au.com.brewtracker.models.{HashedCredentials, Brewer}
 import au.com.brewtracker.dao.{Recipes, Brewers}
 import play.api.mvc.{Controller, Action}
 import play.api.libs.json.Json
@@ -28,7 +28,7 @@ class Application extends Controller {
 
   def addBrewer = Action.async(parse.json(maxLength = 2000)) { request =>
     val brewer: Brewer = request.body.validate[Brewer].get
-    Brewers.add(brewer).map(result => Ok(Json.toJson(result)))
+    Brewers.register(brewer).map(result => Ok(Json.toJson(result)))
   }
 
   def initBrewers = Action {request =>
@@ -43,9 +43,9 @@ class Application extends Controller {
 
       val setupAction: DBIO[Unit] = DBIO.seq(
         // Insert some suppliers
-        brewers += Brewer(None, "Dave", "Brewer", PlainTextCredentials("dave@brewer.com", "asdfasdf")),
-        brewers += Brewer(None, "John", "Guy", PlainTextCredentials("john@guy.com", "asdfasdf")),
-        brewers += Brewer(None, "Matt", "Ale", PlainTextCredentials("matt@ale.com", "asdfasdf"))
+        brewers += Brewer(None, "Dave", "Brewer", HashedCredentials(None, "dave@brewer.com", "asdfasdf")),
+        brewers += Brewer(None, "John", "Guy", HashedCredentials(None, "john@guy.com", "asdfasdf")),
+        brewers += Brewer(None, "Matt", "Ale", HashedCredentials(None, "matt@ale.com", "asdfasdf"))
       )
 
       val setupFuture: Future[Unit] = db.run(setupAction)

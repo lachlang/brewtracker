@@ -1,7 +1,7 @@
 package au.com.brewtracker.dao
 
 import au.com.brewtracker.models.Brewer
-import au.com.brewtracker.models.PlainTextCredentials
+import au.com.brewtracker.models.HashedCredentials
 
 import play.api.Play
 import scala.concurrent.Future
@@ -15,47 +15,37 @@ import slick.driver.JdbcProfile
 /**
  * Created by Lachlan on 11/08/2015.
  */
+class Brewers(tag: Tag) extends Table[Brewer](tag, "brewers") {
 
-//trait BrewersTable {
+  def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
-  class Brewers(tag: Tag) extends Table[Brewer](tag, "brewers") {
-    //  extends Table[(Long, String, String, DateTime)](tag, "brewers") {
+  def firstName: Rep[String] = column[String]("first_name")
 
-    def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
+  def lastName: Rep[String] = column[String]("last_name")
 
-    def firstName: Rep[String] = column[String]("first_name")
+  def credId: Rep[Long] = column[Long]("cred_id")
 
-    def lastName: Rep[String] = column[String]("last_name")
+  def email: Rep[String] = column[String]("email")
 
-//    def credentialId: Rep[Long] = column[Long]("cred_id")
+  def hash: Rep[String] = column[String]("hash")
 
-    def email: Rep[String] = column[String]("email")
+  // TODO: optional column so we can post a happy birthday message on login
+  // def dob: Rep[DateTime] = column[DateTime]("dob")
 
-    def hash: Rep[String] = column[String]("hash")
+  // LG: 12-Aug-2015 We may want something like this at some point, if we want implement
+  // a LHBS finder, but not today...
+  //  def address: Rep[String] = column[String]("address_id")
 
-    // optional column so we can post a happy birthday message on login
-    //  def dob: Rep[DateTime] = column[DateTime]("dob")
+  def * = (id.?, firstName, lastName, (credId.?, email, hash)).shaped <> (
+    { case (id, firstName, lastName, (credId, email, hash)) =>
+      Brewer(id, firstName, lastName, HashedCredentials.apply(credId, email, hash))
+    },
+    { b: Brewer =>
+      def f1(p: HashedCredentials) = HashedCredentials.unapply(p).get
+      Some((b.id, b.firstName, b.lastName, f1(b.credentials)))
+    })
+}
 
-    // LG: 12-Aug-2015 We may want something like this at some point, if we want implement
-    // a LHBS finder, but not today...
-    //  def address: Rep[String] = column[String]("address_id")
-
-//    def * : ProvenShape[Brewer] = (firstName, lastName, id)
-    def * = (id.?, firstName, lastName, (email, hash)).shaped <> (
-      { case (id, firstName, lastName, (email, hash)) =>
-        Brewer(id, firstName, lastName, PlainTextCredentials.apply(email, hash))
-//        (Brewer.apply _).tupled
-      },
-      { b: Brewer =>
-        def f1(p: PlainTextCredentials) = PlainTextCredentials.unapply(p).get
-        Some((b.id, b.firstName, b.lastName, f1(b.credentials)))
-      })
-
-    //  def * : ProvenShape[(Long, String, String, DateTime)] = (id, firstName, lastName, dob)
-  }
-//}
-
-//class BrewersDao extends BrewersTable with HasDatabaseConfig[JdbcProfile] {
 object Brewers {
   protected val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
@@ -64,16 +54,11 @@ object Brewers {
   def findByName(name: String): Future[Seq[Brewer]] =
     dbConfig.db.run(brewerQuery.filter(_.firstName === name).result)
 
-  def add(brewer: Brewer) =
+  def register(brewer: Brewer) =
     dbConfig.db.run(brewerQuery.insertOrUpdate(brewer))
 
   def findAll: Future[Seq[Brewer]] =
     dbConfig.db.run(brewerQuery.result)
-
-
-  //  def registerBrewer(brewer: Brewer): Future[Brewer] =
-//    dbConfig.db.run(brewerQuery.insertOrUpdate(brewer))
-  // other queries go here
 }
 
 class Recipes(tag: Tag)
