@@ -13,10 +13,10 @@ case class Brewer(id: Option[Long], firstName: String, lastName: String, credent
 object Brewer {
 
   implicit val format: Format[Brewer] = (
-    (JsPath \ "id").formatNullable[Long] and
-    (JsPath \ "firstName").format[String] and
-    (JsPath \ "lastName").format[String] and
-    (JsPath \ "creds").format[HashedCredentials]
+    (JsPath \ "data" \ "id").formatNullable[Long] and
+    (JsPath \ "data" \ "firstName").format[String] and
+    (JsPath \ "data" \ "lastName").format[String] and
+    (JsPath \ "data" \ "creds").format[HashedCredentials]
   )(Brewer.apply, unlift(Brewer.unapply))
 }
 
@@ -30,12 +30,11 @@ object PlainTextCredentials {
     )(PlainTextCredentials.apply, unlift(PlainTextCredentials.unapply))
 }
 
-case class HashedCredentials(id: Option[Long], email: String, hash: String)
+case class HashedCredentials(email: String, hash: String)
 
 object HashedCredentials {
 
   implicit val format: Format[HashedCredentials] = (
-    (JsPath \ "id").formatNullable[Long] and
     (JsPath \ "email").format[String] and
     (JsPath \ "hash").format[String]
   )(HashedCredentials.apply, unlift(HashedCredentials.unapply))

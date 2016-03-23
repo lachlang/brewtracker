@@ -23,8 +23,6 @@ class Brewers(tag: Tag) extends Table[Brewer](tag, "brewers") {
 
   def lastName: Rep[String] = column[String]("last_name")
 
-  def credId: Rep[Long] = column[Long]("cred_id")
-
   def email: Rep[String] = column[String]("email")
 
   def hash: Rep[String] = column[String]("hash")
@@ -36,9 +34,9 @@ class Brewers(tag: Tag) extends Table[Brewer](tag, "brewers") {
   // a LHBS finder, but not today...
   //  def address: Rep[String] = column[String]("address_id")
 
-  def * = (id.?, firstName, lastName, (credId.?, email, hash)).shaped <> (
-    { case (id, firstName, lastName, (credId, email, hash)) =>
-      Brewer(id, firstName, lastName, HashedCredentials.apply(credId, email, hash))
+  def * = (id.?, firstName, lastName, (email, hash)).shaped <> (
+    { case (id, firstName, lastName, (email, hash)) =>
+      Brewer(id, firstName, lastName, HashedCredentials.apply(email, hash))
     },
     { b: Brewer =>
       def f1(p: HashedCredentials) = HashedCredentials.unapply(p).get

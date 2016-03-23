@@ -43,9 +43,9 @@ class Application extends Controller {
 
       val setupAction: DBIO[Unit] = DBIO.seq(
         // Insert some suppliers
-        brewers += Brewer(None, "Dave", "Brewer", HashedCredentials(None, "dave@brewer.com", "asdfasdf")),
-        brewers += Brewer(None, "John", "Guy", HashedCredentials(None, "john@guy.com", "asdfasdf")),
-        brewers += Brewer(None, "Matt", "Ale", HashedCredentials(None, "matt@ale.com", "asdfasdf"))
+        brewers += Brewer(None, "Dave", "Brewer", HashedCredentials("dave@brewer.com", "asdfasdf")),
+        brewers += Brewer(None, "John", "Guy", HashedCredentials("john@guy.com", "asdfasdf")),
+        brewers += Brewer(None, "Matt", "Ale", HashedCredentials("matt@ale.com", "asdfasdf"))
       )
 
       val setupFuture: Future[Unit] = db.run(setupAction)

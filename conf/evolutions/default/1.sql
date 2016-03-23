@@ -6,6 +6,8 @@ create table brewers (
   id                        serial,
   first_name                varchar(255) not null,
   last_name                 varchar(255) not null,
+  email                     varchar(255) not null,
+  hash                      varchar(255) not null,
   constraint pk_brewers primary key (id))
 ;
 
